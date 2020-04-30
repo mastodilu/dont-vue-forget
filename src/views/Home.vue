@@ -1,18 +1,41 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="container">
+      <div class="row">
+        <div class="col s6" v-for="(todo, index) in allTodos" :key=index>
+          <TodoCard :todo='todo' />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import TodoCard from '@/components/TodoCard.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    TodoCard
+  },
+  data: function(){
+    return {
+      allTodos: [
+        {createdAt: '2020/04/30 15:46:23', content: 'Amet mollit sit occaecat ea amet commodo consequat et aliqua adipisicing.'},
+        {createdAt: '2020/04/30 15:46:23', content: 'Elit nisi excepteur fugiat id.'},
+        {createdAt: '2020/04/30 15:46:23', content: 'Aute voluptate mollit excepteur id esse excepteur.'},
+        {createdAt: '2020/04/30 15:46:23', content: 'Fugiat ex officia dolore adipisicing.'},
+        {createdAt: '2020/04/30 15:46:23', content: 'Lorem occaecat ut adipisicing velit fugiat anim excepteur magna incididunt cillum consequat.'},
+        {createdAt: '2020/04/30 15:46:23', content: 'Ut aliquip fugiat esse aute elit est mollit labore elit magna.'},
+        {createdAt: '2020/04/30 15:46:23', content: 'Consequat consectetur adipisicing aliqua ullamco cupidatat Lorem duis eu deserunt.'},
+        {createdAt: '2020/04/30 15:46:23', content: 'Id voluptate irure voluptate nisi minim officia dolor laboris qui ut ea magna incididunt.'},
+        {createdAt: '2020/04/30 15:46:23', content: 'Aliqua consequat pariatur cupidatat nulla.'},
+        {createdAt: '2020/04/30 15:46:23', content: 'Incididunt et est voluptate duis aliqua in aliqua elit consequat ea exercitation fugiat qui velit.'},
+        {createdAt: '2020/04/30 15:46:23', content: 'Do anim enim sit pariatur reprehenderit aute est mollit qui et laborum consequat.'},
+      ]
+    }
   }
 }
 </script>
