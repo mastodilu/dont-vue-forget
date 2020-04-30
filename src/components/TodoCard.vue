@@ -20,7 +20,7 @@ export default{
 </script>
 
 <style>
-.todo-card {
-  width: 100%;
+.todo-card .card-content p {
+  margin-bottom: 6px;
 }
 </style>

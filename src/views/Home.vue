@@ -1,11 +1,9 @@
 <template>
   <div class="home">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <div class="container">
-      <div class="row">
-        <div class="col m12 l6" v-for="(todo, index) in allTodos" :key=index>
+    <div class="container cards-container">
+        <div v-for="(todo, index) in allTodos" :key=index>
           <TodoCard :todo='todo' />
-        </div>
       </div>
     </div>
   </div>
@@ -39,3 +37,12 @@ export default {
   }
 }
 </script>
+
+<style>
+.home .cards-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1px 20px;
+  margin-top: 30px;
+}
+</style>
