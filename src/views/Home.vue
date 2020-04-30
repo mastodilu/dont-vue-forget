@@ -3,7 +3,7 @@
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <div class="container">
       <div class="row">
-        <div class="col s6" v-for="(todo, index) in allTodos" :key=index>
+        <div class="col m12 l6" v-for="(todo, index) in allTodos" :key=index>
           <TodoCard :todo='todo' />
         </div>
       </div>

@@ -18,3 +18,9 @@ export default{
   props: ['todo'],
 }
 </script>
+
+<style>
+.todo-card {
+  width: 100%;
+}
+</style>
