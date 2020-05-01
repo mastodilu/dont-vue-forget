@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="container cards-container">
+    <div class="cards-container">
         <div v-for="(todo, index) in allTodos" :key=index>
           <TodoCard :todo='todo' @deleteTodo=deleteTodo />
       </div>
@@ -28,7 +28,7 @@ export default {
         {createdAt: '2020/04/25 15:46:23', content: 'Ut aliquip fugiat esse aute elit est mollit labore elit magna.'},
         {createdAt: '2020/04/24 15:46:23', content: 'Consequat consectetur adipisicing aliqua ullamco cupidatat Lorem duis eu deserunt.'},
         {createdAt: '2020/04/23 15:46:23', content: 'Id voluptate irure voluptate nisi minim officia dolor laboris qui ut ea magna incididunt.'},
-        {createdAt: '2020/04/22 15:46:23', content: 'Aliqua consequat pariatur cupidatat nulla.'},
+        {createdAt: '2020/04/22 15:46:23', content: 'Aliqua consequat.'},
         {createdAt: '2020/04/21 15:46:23', content: 'Incididunt et est voluptate duis aliqua in aliqua elit consequat ea exercitation fugiat qui velit.'},
         {createdAt: '2020/04/20 15:46:23', content: 'Do anim enim sit pariatur reprehenderit aute est mollit qui et laborum consequat.'},
       ]
@@ -46,10 +46,16 @@ export default {
 </script>
 
 <style>
+
+.home {
+  padding: 1rem;
+}
+
 .home .cards-container{
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns:repeat(auto-fit, minmax(19rem, 1fr));
   grid-gap: 1px 20px;
   margin-top: 30px;
 }
+
 </style>
