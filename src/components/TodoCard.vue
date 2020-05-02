@@ -28,8 +28,7 @@ export default{
       console.log('clicked')
     },
     actionDelete: function() {
-      
-      this.$emit('deleteTodo', {createdAt:this.todo.createdAt})
+      this.$emit('deleteTodo', {createdAt:this.todo.createdAt, id:this.todo.id})
     }
   }
 }

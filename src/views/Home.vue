@@ -38,9 +38,17 @@ export default {
   methods: {
     deleteTodo: function(payload){
       console.log("delete", payload)
-      this.allTodos = this.allTodos.filter(todo => {
-        return todo.createdAt !== payload.createdAt
-      })
+      db.collection('todos').doc(payload.id).delete()
+        .then(() => {
+          // delete item in local
+          this.allTodos = this.allTodos.filter(todo => {
+            return todo.createdAt !== payload.createdAt
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      
     }
   },
   // hook
@@ -49,7 +57,9 @@ export default {
     .then(snapshot => {
       snapshot.forEach(currentDocument => {
         // console.log(currentDocument.data(), currentDocument.id)
-        this.allTodos.push(currentDocument.data())
+        let todo = currentDocument.data()
+        todo.id = currentDocument.id
+        this.allTodos.push(todo)
       });
     })
     .catch(err => {console.log(err)})
@@ -61,6 +71,7 @@ export default {
 
 .home {
   padding: 1rem;
+  
 }
 
 .home .cards-container{
