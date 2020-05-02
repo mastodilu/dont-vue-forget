@@ -4,7 +4,8 @@
       <div class="nav-wrapper blue-grey darken-2">
         <router-link :to='{name:"Home"}' class="brand-logo left"><span>Don't Forget</span></router-link>
         <ul class="right">
-          <li><router-link :to='{name:"Home"}' class="btn-floating btn-large waves-effect waves-light teal halfway-fab"><i class="material-icons">add</i></router-link></li>
+          <!-- <li><router-link :to='{name:"AddTodo"}' class="btn-floating btn-large waves-effect waves-light teal halfway-fab"><i class="material-icons">add</i></router-link></li> -->
+          <!-- <li><button @click=diplayForm><i class="material-icons">add</i></button></li> -->
         </ul>
       </div>
     </nav>
@@ -17,7 +18,8 @@ export default {
   data: function(){
     return {}
   },
-  methods: {}
+  methods: {
+  },
 }
 </script>
 
