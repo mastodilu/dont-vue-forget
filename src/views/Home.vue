@@ -41,7 +41,11 @@ export default {
   methods: {
     createTodo: function(payload){
       console.log("todo: upload",payload)
-      this.allTodos.unshift(payload)
+      db.collection('todos').add(payload)
+        .then(
+          this.allTodos.unshift(payload)
+        )
+        .catch(err => {console.log(err)})
     },
 
     deleteTodo: function(payload){
