@@ -1,8 +1,9 @@
 <template>
   <div class="home">
+    <CreateTodo label="Don't forget to..." @newtodo=createTodo />
     <div class="cards-container">
-        <div v-for="(todo, index) in allTodos" :key=index>
-          <TodoCard :todo='todo' @deleteTodo=deleteTodo />
+      <div v-for="(todo, index) in allTodos" :key=index>
+        <TodoCard :todo='todo' @deleteTodo=deleteTodo />
       </div>
     </div>
   </div>
@@ -11,12 +12,14 @@
 <script>
 // @ is an alias to /src
 import TodoCard from '@/components/TodoCard.vue'
+import CreateTodo from '@/components/CreateTodo.vue'
 import db from '@/firebase/init.js'
 
 export default {
   name: 'Home',
   components: {
-    TodoCard
+    TodoCard,
+    CreateTodo,
   },
   data: function(){
     return {
@@ -36,6 +39,11 @@ export default {
     }
   },
   methods: {
+    createTodo: function(payload){
+      console.log("todo: upload",payload)
+      this.allTodos.unshift(payload)
+    },
+
     deleteTodo: function(payload){
       console.log("delete", payload)
       db.collection('todos').doc(payload.id).delete()
@@ -71,14 +79,14 @@ export default {
 
 .home {
   padding: 1rem;
-  
 }
 
 .home .cards-container{
   display: grid;
   grid-template-columns:repeat(auto-fit, minmax(19rem, 1fr));
+  grid-auto-rows: minmax(100px, auto);
   grid-gap: 1px 20px;
-  margin-top: 30px;
+  /* margin-top: 30px; */
 }
 
 </style>
