@@ -7,7 +7,7 @@
       </div>
       <div class="card-content white-text">
         <p>{{todo.content}}</p>
-        <span class="lime-text">{{todo.createdAt}}</span>
+        <span class="lime-text">{{todo.createdAt | prettyDate}}</span>
       </div>
     </div>
   </div>
