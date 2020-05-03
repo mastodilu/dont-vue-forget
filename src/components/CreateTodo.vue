@@ -49,4 +49,8 @@ export default {
   justify-self: center;
   align-self: center;
 }
+
+.create-todo {
+  padding-left: 8px;;
+}
 </style>
