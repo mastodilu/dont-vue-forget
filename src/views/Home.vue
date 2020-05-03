@@ -65,10 +65,9 @@ export default {
   },
   // hook
   created: function(){
-    db.collection('todos').get()
+    db.collection('todos').orderBy('createdAt', 'desc').get()
     .then(snapshot => {
       snapshot.forEach(currentDocument => {
-        // console.log(currentDocument.data(), currentDocument.id)
         let todo = currentDocument.data()
         todo.id = currentDocument.id
         this.allTodos.push(todo)
