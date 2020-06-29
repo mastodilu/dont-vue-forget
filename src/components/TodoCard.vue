@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 import db from '@/firebase/init'
 export default{
   name: 'TodoCard',
@@ -45,10 +46,7 @@ export default{
       if(this.userInput !== '') {
         let newTodo = this.todo
         newTodo.content = this.userInput
-        db.collection('todos').doc(this.todo.id).update(newTodo)
-        .then(
-          this.todo.content = this.userInput
-        )
+        db.collection('todos').doc(firebase.auth().currentUser.email).collection('myTodos').doc(this.todo.id).update(newTodo)
         .catch(err => {console.log(err)})
         
         this.displayEditField = false
