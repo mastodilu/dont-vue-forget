@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import moment from 'moment'
+import { dateFormat } from '../globals/variables.js'
 export default {
   name: 'CreateTodo',
   data: function(){
@@ -24,10 +26,11 @@ export default {
     createTodo: function(){
       
       if (this.userInput !== '') {
+          let now = moment(Date.now()).format(dateFormat)
+          console.log('>>> ', now)
           let newitem = {
-          id: '1234',
           content: this.userInput,
-          createdAt: '20200502_175743',
+          createdAt: now,
         }
         this.$emit('newtodo', newitem)
         this.userInput = ''

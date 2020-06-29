@@ -30,11 +30,8 @@ export default {
   methods: {
     createTodo: function(payload){
       console.log("todo: upload",payload)
-      db.collection('todos').add(payload)
-        .then(
-          this.allTodos.unshift(payload)
-        )
-        .catch(err => {console.log(err)})
+      db.collection('todos').doc(firebase.auth().currentUser.email).collection('myTodos').add(payload)
+      .catch(err => {console.log(err)})
     },
 
     deleteTodo: function(payload){

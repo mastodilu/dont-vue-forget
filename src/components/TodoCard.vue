@@ -19,7 +19,7 @@
             <i class="material-icons" @click=updateTodo >sync</i>
           </div>
         </div>
-        <span class="lime-text">{{todo.createdAt | prettyDate}}</span>
+        <span class="lime-text">{{todo.createdAt}}</span>
       </div>
     </div>
   </div>
