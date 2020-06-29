@@ -14,6 +14,7 @@
 import TodoCard from '@/components/TodoCard.vue'
 import CreateTodo from '@/components/CreateTodo.vue'
 import db from '@/firebase/init.js'
+import firebase from 'firebase'
 
 export default {
   name: 'Home',
@@ -23,19 +24,7 @@ export default {
   },
   data: function(){
     return {
-      allTodos: [
-        // {createdAt: '2020/04/30 15:46:23', content: 'Amet mollit sit occaecat ea amet commodo consequat et aliqua adipisicing.'},
-        // {createdAt: '2020/04/29 15:46:23', content: 'Elit nisi excepteur fugiat id.'},
-        // {createdAt: '2020/04/28 15:46:23', content: 'Aute voluptate mollit excepteur id esse excepteur.'},
-        // {createdAt: '2020/04/27 15:46:23', content: 'Fugiat ex officia dolore adipisicing.'},
-        // {createdAt: '2020/04/26 15:46:23', content: 'Lorem occaecat ut adipisicing velit fugiat anim excepteur magna incididunt cillum consequat.'},
-        // {createdAt: '2020/04/25 15:46:23', content: 'Ut aliquip fugiat esse aute elit est mollit labore elit magna.'},
-        // {createdAt: '2020/04/24 15:46:23', content: 'Consequat consectetur adipisicing aliqua ullamco cupidatat Lorem duis eu deserunt.'},
-        // {createdAt: '2020/04/23 15:46:23', content: 'Id voluptate irure voluptate nisi minim officia dolor laboris qui ut ea magna incididunt.'},
-        // {createdAt: '2020/04/22 15:46:23', content: 'Aliqua consequat.'},
-        // {createdAt: '2020/04/21 15:46:23', content: 'Incididunt et est voluptate duis aliqua in aliqua elit consequat ea exercitation fugiat qui velit.'},
-        // {createdAt: '2020/04/20 15:46:23', content: 'Do anim enim sit pariatur reprehenderit aute est mollit qui et laborum consequat.'},
-      ]
+      allTodos: [],
     }
   },
   methods: {
@@ -61,18 +50,27 @@ export default {
           console.log(err)
         })
       
-    }
+    },
   },
-  // hook
   created: function(){
-    db.collection('todos').orderBy('createdAt', 'desc').get()
-    .then(snapshot => {
-      snapshot.forEach(currentDocument => {
-        let todo = currentDocument.data()
-        todo.id = currentDocument.id
-        this.allTodos.push(todo)
+    console.log(firebase.auth().currentUser.email)
+    db.collection('todos').doc(firebase.auth().currentUser.email).get()
+    .then(doc => {
+      console.log(doc.data().myTodos)
+      doc.data().myTodos.forEach(todoItem => {
+        this.allTodos.unshift(todoItem)
       });
+      // this.allTodos = doc.data().myTodos
     })
+    // db.collection('todos').doc(firebase.auth().currentUser.email).collection('myTodos').orderBy('createdAt', 'desc').get()
+    // .then(snapshot => {
+      // snapshot.forEach(currentDocument => {
+      //   console.log(currentDocument)
+        // let todo = currentDocument.data()
+        // todo.id = currentDocument.id
+        // this.allTodos.push(todo)
+      // });
+    // })
     .catch(err => {console.log(err)})
   }
 }
