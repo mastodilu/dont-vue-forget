@@ -40,7 +40,7 @@ export default{
   props: ['todo'],
   methods: {
     actionDelete: function() {
-      this.$emit('deleteTodo', {createdAt:this.todo.createdAt, id:this.todo.id})
+      this.$emit('deleteTodo', this.todo.id)
     },
     updateTodo: function() {
       if(this.userInput !== '') {

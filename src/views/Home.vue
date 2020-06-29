@@ -34,15 +34,15 @@ export default {
       .catch(err => {console.log(err)})
     },
 
-    deleteTodo: function(payload){
-      console.log("delete", payload)
-      db.collection('todos').doc(payload.id).delete()
-        .then(() => {
-          // delete item in local
-          this.allTodos = this.allTodos.filter(todo => {
-            return todo.createdAt !== payload.createdAt
-          })
-        })
+    deleteTodo: function(id){
+      console.log("delete", id)
+      db.collection('todos').doc(firebase.auth().currentUser.email).collection('myTodos').doc(id).delete()
+        // .then(() => {
+        //   // delete item in local
+        //   this.allTodos = this.allTodos.filter(todo => {
+        //     return todo.createdAt !== payload.createdAt
+        //   })
+        // })
         .catch(err => {
           console.log(err)
         })
