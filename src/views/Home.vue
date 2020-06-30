@@ -73,18 +73,6 @@ export default {
         }
       })
     })
-
-    console.log(firebase.auth().currentUser.email)
-    db.collection('todos').doc(firebase.auth().currentUser.email).collection('myTodos').orderBy('createdAt', 'desc').get()
-    .then(snapshot => {
-      snapshot.forEach(currentDocument => {
-        console.log(currentDocument)
-        let todo = currentDocument.data()
-        todo.id = currentDocument.id
-        this.allTodos.push(todo)
-      });
-    })
-    .catch(err => {console.log(err)})
   },
   beforeDestroy: function(){
     this.unsubscribe()
