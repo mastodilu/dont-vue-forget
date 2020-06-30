@@ -25,6 +25,7 @@ export default {
   data: function(){
     return {
       allTodos: [],
+      unsubscribe: null,
     }
   },
   methods: {
@@ -37,19 +38,42 @@ export default {
     deleteTodo: function(id){
       console.log("delete", id)
       db.collection('todos').doc(firebase.auth().currentUser.email).collection('myTodos').doc(id).delete()
-        // .then(() => {
-        //   // delete item in local
-        //   this.allTodos = this.allTodos.filter(todo => {
-        //     return todo.createdAt !== payload.createdAt
-        //   })
-        // })
-        .catch(err => {
-          console.log(err)
-        })
-      
+      .catch(err => {
+        console.log(err)
+      })
     },
   },
   created: function(){
+    console.log('listening for changes')
+    let collection = db.collection('todos').doc(firebase.auth().currentUser.email).collection('myTodos').orderBy('createdAt', 'desc')
+    this.unsubscribe = collection.onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
+        let doc = change.doc
+        let data = doc.data()
+        console.log('>', change.type, doc.id, data)
+        switch(change.type){
+          case 'removed':
+            this.allTodos = this.allTodos.filter(todo => {
+              todo.id !== doc.id
+            })
+            break
+          case 'added':
+            data.id = doc.id
+            this.allTodos.unshift(data)
+            break
+          case 'modified':
+            this.allTodos.forEach(todo => {
+              if(todo.id === doc.id) {
+                // FIXME break this loop when this IF is triggered
+                todo.content = data.content
+                console.log('updating', doc.id)
+              }
+            })
+            break
+        }
+      })
+    })
+
     console.log(firebase.auth().currentUser.email)
     db.collection('todos').doc(firebase.auth().currentUser.email).collection('myTodos').orderBy('createdAt', 'desc').get()
     .then(snapshot => {
@@ -61,7 +85,11 @@ export default {
       });
     })
     .catch(err => {console.log(err)})
-  }
+  },
+  beforeDestroy: function(){
+    this.unsubscribe()
+    console.log('unsubscribed')
+  },
 }
 </script>
 
@@ -76,7 +104,6 @@ export default {
   grid-template-columns:repeat(auto-fit, minmax(19rem, 1fr));
   grid-auto-rows: minmax(100px, auto);
   grid-gap: 1px 20px;
-  /* margin-top: 30px; */
 }
 
 </style>
