@@ -24,17 +24,16 @@ export default {
   },
   methods: {
     createTodo: function(){
-      
-      if (this.userInput !== '') {
-          let now = moment(Date.now()).format(dateFormat)
-          console.log('>>> ', now)
-          let newitem = {
-          content: this.userInput,
-          createdAt: now,
-        }
-        this.$emit('newtodo', newitem)
-        this.userInput = ''
+      if(!this.userInput || this.userInput === '') {
+        return
       }
+      let now = moment(Date.now()).format(dateFormat)
+      let newitem = {
+        content: this.userInput,
+        createdAt: now,
+      }
+      this.$emit('newtodo', newitem)
+      this.userInput = ''
     },
   },
   props: ['label'],
