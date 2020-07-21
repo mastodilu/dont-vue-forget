@@ -98,4 +98,8 @@ export default{
 .todo-card .nested-edit textarea {
   padding-left: 0.7rem;
 }
+
+.todo-card .card-content p {
+    font-size: 1.2rem;
+}
 </style>
