@@ -36,7 +36,6 @@ export default {
     },
 
     deleteTodo: function(id){
-      console.log("delete", id)
       db.collection('todos').doc(firebase.auth().currentUser.email).collection('myTodos').doc(id).delete()
       .catch(err => {
         console.log(err)
@@ -44,17 +43,15 @@ export default {
     },
   },
   created: function(){
-    console.log('listening for changes')
     let collection = db.collection('todos').doc(firebase.auth().currentUser.email).collection('myTodos').orderBy('createdAt', 'desc')
     this.unsubscribe = collection.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
         let doc = change.doc
         let data = doc.data()
-        console.log('>', change.type, doc.id, data)
         switch(change.type){
           case 'removed':
             this.allTodos = this.allTodos.filter(todo => {
-              todo.id !== doc.id
+              return todo.id !== doc.id
             })
             break
           case 'added':
@@ -64,9 +61,8 @@ export default {
           case 'modified':
             this.allTodos.forEach(todo => {
               if(todo.id === doc.id) {
-                // FIXME break this loop when this IF is triggered
                 todo.content = data.content
-                console.log('updating', doc.id)
+                // console.log('updated', doc.id)
               }
             })
             break
