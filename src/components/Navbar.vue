@@ -4,7 +4,7 @@
       <div class="nav-wrapper blue-grey darken-2">
         <router-link :to='{name:"Home"}' class="brand-logo left"><span>Don't Forget</span></router-link>
         <ul class="right">
-          <li><button @click=logoutUser class="waves-effect btn-flat">Logout</button></li>
+          <li v-if=userLoggedIn><button @click=logoutUser class="waves-effect btn-flat">Logout</button></li>
         </ul>
       </div>
     </nav>
@@ -16,7 +16,9 @@ import firebase from 'firebase'
 export default {
   name: 'navbar',
   data: function(){
-    return {}
+    return {
+      userLoggedIn: null,
+    }
   },
   methods: {
     logoutUser: function(){
@@ -24,6 +26,15 @@ export default {
       .then(this.$router.push({name:'Login'}))
       .catch(err => {alert(err)})
     }
+  },
+  created: function(){
+    firebase.auth().onAuthStateChanged(user => {
+      if(user){
+        this.userLoggedIn = true
+      } else {
+        this.userLoggedIn = false
+      }
+    })
   },
 }
 </script>
