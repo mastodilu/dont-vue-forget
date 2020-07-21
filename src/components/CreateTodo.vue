@@ -55,4 +55,9 @@ export default {
 .create-todo {
   padding-left: 8px;;
 }
+
+.create-todo button {
+  align-self: start;
+  margin-top: 1rem;
+}
 </style>
