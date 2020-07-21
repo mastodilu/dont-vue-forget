@@ -4,8 +4,7 @@
       <div class="nav-wrapper blue-grey darken-2">
         <router-link :to='{name:"Home"}' class="brand-logo left"><span>Don't Forget</span></router-link>
         <ul class="right">
-          <!-- <li><router-link :to='{name:"AddTodo"}' class="btn-floating btn-large waves-effect waves-light teal halfway-fab"><i class="material-icons">add</i></router-link></li> -->
-          <!-- <li><button @click=diplayForm><i class="material-icons">add</i></button></li> -->
+          <li><button @click=logoutUser class="waves-effect btn-flat">Logout</button></li>
         </ul>
       </div>
     </nav>
@@ -13,12 +12,18 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 export default {
   name: 'navbar',
   data: function(){
     return {}
   },
   methods: {
+    logoutUser: function(){
+      firebase.auth().signOut()
+      .then(this.$router.push({name:'Login'}))
+      .catch(err => {alert(err)})
+    }
   },
 }
 </script>
@@ -27,5 +32,14 @@ export default {
 .navbar .nav-wrapper{
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.navbar .logout-icon {
+  background: url("/dist/logout.ico");
+}
+
+.navbar ul.right button {
+  color: white;
+  background: rgba(0, 0, 0, 0.15);
 }
 </style>
