@@ -41,7 +41,7 @@ export default {
     },
   },
   created: function(){
-    let collection = db.collection('todos').doc(firebase.auth().currentUser.email).collection('myTodos').orderBy('createdAt', 'desc')
+    let collection = db.collection('todos').doc(firebase.auth().currentUser.email).collection('myTodos').orderBy('createdAt')
     this.unsubscribe = collection.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
         let doc = change.doc
@@ -54,7 +54,7 @@ export default {
             break
           case 'added':
             data.id = doc.id
-            this.allTodos.unshift(data)
+            this.allTodos.push(data)
             break
           case 'modified':
             this.allTodos.forEach(todo => {
