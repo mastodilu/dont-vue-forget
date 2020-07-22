@@ -58,6 +58,11 @@ export default{
 </script>
 
 <style>
+
+.todo-card .card {
+  margin: 0;
+}
+
 .todo-card .card-content p {
   margin-bottom: 6px;
 }
