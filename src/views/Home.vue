@@ -2,9 +2,7 @@
   <div class="home">
     <CreateTodo label="Don't forget to..." @newtodo=createTodo />
     <div class="cards-container">
-      <div v-for="(todo, index) in allTodos" :key=index>
-        <TodoCard :todo='todo' @deleteTodo=deleteTodo />
-      </div>
+      <TodoCard v-for="(todo, index) in allTodos" :key=index :todo='todo' @deleteTodo=deleteTodo />
     </div>
   </div>
 </template>
@@ -87,7 +85,7 @@ export default {
   display: grid;
   grid-template-columns:repeat(auto-fit, minmax(19rem, 1fr));
   grid-auto-rows: minmax(100px, auto);
-  grid-gap: 1px 20px;
+  grid-gap: 10px;
 }
 
 </style>
